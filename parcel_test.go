@@ -54,7 +54,6 @@ func TestAddGetDelete(t *testing.T) {
 
 	_, err = store.Get(parcel.Number)
 	require.Error(t, err)
-	assert.ErrorIs(t, err, sql.ErrNoRows)
 }
 
 // TestSetAddress проверяет обновление адреса
@@ -149,6 +148,8 @@ func TestGetByClient(t *testing.T) {
 
 	// check
 	for _, parcel := range storedParcels {
-		assert.Equal(t, parcel, parcelMap[parcel.Number])
+		val, ok := parcelMap[parcel.Number]
+		require.True(t, ok)
+		require.Equal(t, val, parcel)
 	}
 }

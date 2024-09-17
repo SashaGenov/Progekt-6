@@ -2,7 +2,6 @@ package main
 
 import (
 	"database/sql"
-	"log"
 
 	_ "modernc.org/sqlite"
 )
@@ -58,7 +57,7 @@ func (s ParcelStore) GetByClient(client int) ([]Parcel, error) {
 		err := rows.Scan(&p.Number, &p.Client, &p.Status, &p.Address, &p.CreatedAt)
 
 		if err != nil {
-			log.Fatal(err)
+			return nil, err
 		}
 		res = append(res, p)
 	}
